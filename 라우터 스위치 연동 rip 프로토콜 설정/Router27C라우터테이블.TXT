@@ -1,0 +1,23 @@
+
+Router27C#SH IP RO        sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+R     10.0.0.0/8 [120/1] via 150.10.10.2, 00:00:25, Serial0/0/0
+R     11.0.0.0/8 [120/2] via 150.10.10.2, 00:00:25, Serial0/0/0
+R     149.10.0.0/16 [120/1] via 150.10.10.2, 00:00:25, Serial0/0/0
+      150.10.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        150.10.0.0/16 is directly connected, Serial0/0/0
+L        150.10.10.1/32 is directly connected, Serial0/0/0
+      200.10.10.0/24 is variably subnetted, 2 subnets, 2 masks
+C        200.10.10.0/24 is directly connected, GigabitEthernet0/0
+L        200.10.10.2/32 is directly connected, GigabitEthernet0/0
+Router27C#

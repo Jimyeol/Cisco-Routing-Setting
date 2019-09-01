@@ -1,0 +1,13 @@
+ping 150.150.1.1
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 150.150.1.1, timeout is 2 seconds:
+.!!!!
+Success rate is 80 percent (4/5), round-trip min/avg/max = 1/4/5 ms
+Switch26#ping 130.130.1.1
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 130.130.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 5/10/15 ms
+Switch26#

@@ -1,0 +1,196 @@
+
+Router26#3k    3k    sh run
+Router26#sh running-config 
+Building configuration...
+
+Current configuration : 1402 bytes
+!
+! Last configuration change at 06:46:30 UTC Mon Apr 17 1995
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Router26
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+no ipv6 cef
+ip source-route
+ip cef
+!
+!
+!
+ --More--         !
+!
+multilink bundle-name authenticated
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+license udi pid CISCO2911/K9 sn FGL15351246
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ --More--          duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ ip address 192.168.23.1 255.255.255.240
+ no fair-queue
+ clock rate 2000000
+!
+interface Serial0/0/1
+ ip address 192.168.12.2 255.255.255.240
+ clock rate 2000000
+!
+ --More--         router ospf 200
+ network 192.168.12.0 0.0.0.15 area 0
+ network 192.168.23.0 0.0.0.15 area 0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport input all
+ --More--          transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+scheduler allocate 20000 1000
+end
+
+Router26#sh ikp    p protocol
+Router26#sh ip protocols 
+*** IP Routing is NSF aware ***
+
+Routing Protocol is "ospf 200"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Router ID 192.168.23.1
+  Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    192.168.12.0 0.0.0.15 area 0
+    192.168.23.0 0.0.0.15 area 0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    192.168.12.1         110      00:04:00
+    192.168.23.2         110      00:09:05
+  Distance: (default is 110)
+
+Router26#sh ip rotu  ute
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+      172.16.0.0/24 is subnetted, 2 subnets
+O        172.16.10.0 [110/65] via 192.168.12.1, 00:04:10, Serial0/0/1
+O        172.16.30.0 [110/65] via 192.168.23.2, 00:09:15, Serial0/0/0
+      192.168.12.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.12.0/28 is directly connected, Serial0/0/1
+L        192.168.12.2/32 is directly connected, Serial0/0/1
+      192.168.23.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.23.0/28 is directly connected, Serial0/0/0
+L        192.168.23.1/32 is directly connected, Serial0/0/0
+Router26#sh ip ospf in
+Router26#sh ip ospf interface 
+Serial0/0/0 is up, line protocol is up 
+  Internet Address 192.168.23.1/28, Area 0, Attached via Network Statement
+  Process ID 200, Router ID 192.168.23.1, Network Type POINT_TO_POINT, Cost: 64
+  Topology-MTID    Cost    Disabled    Shutdown      Topology Name
+        0           64        no          no            Base
+  Transmit Delay is 1 sec, State POINT_TO_POINT
+  Timer intervals configured, Hello 10, Dead 40, Wait 40, Retransmit 5
+    oob-resync timeout 40
+    Hello due in 00:00:09
+  Supports Link-local Signaling (LLS)
+  Cisco NSF helper support enabled
+  IETF NSF helper support enabled
+  Index 2/2, flood queue length 0
+  Next 0x0(0)/0x0(0)
+  Last flood scan length is 1, maximum is 1
+  Last flood scan time is 0 msec, maximum is 0 msec
+  Neighbor Count is 1, Adjacent neighbor count is 1 
+    Adjacent with neighbor 192.168.23.2
+  Suppress hello for 0 neighbor(s)
+Serial0/0/1 is up, line protocol is up 
+  Internet Address 192.168.12.2/28, Area 0, Attached via Network Statement
+  Process ID 200, Router ID 192.168.23.1, Network Type POINT_TO_POINT, Cost: 64
+  Topology-MTID    Cost    Disabled    Shutdown      Topology Name
+        0           64        no          no            Base
+ --More--           Transmit Delay is 1 sec, State POINT_TO_POINT
+  Timer intervals configured, Hello 10, Dead 40, Wait 40, Retransmit 5
+    oob-resync timeout 40
+    Hello due in 00:00:04
+  Supports Link-local Signaling (LLS)
+  Cisco NSF helper support enabled
+  IETF NSF helper support enabled
+  Index 1/1, flood queue length 0
+  Next 0x0(0)/0x0(0)
+  Last flood scan length is 1, maximum is 1
+  Last flood scan time is 0 msec, maximum is 0 msec
+  Neighbor Count is 1, Adjacent neighbor count is 1 
+    Adjacent with neighbor 192.168.12.1
+  Suppress hello for 0 neighbor(s)
+Router26#sh ip ospf ne
+Router26#sh ip ospf neighbor 
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+192.168.23.2      0   FULL/  -        00:00:30    192.168.23.2    Serial0/0/0
+192.168.12.1      0   FULL/  -        00:00:38    192.168.12.1    Serial0/0/1
+Router26#

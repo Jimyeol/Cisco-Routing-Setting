@@ -1,0 +1,6 @@
+ping 201.240.10.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 201.240.10.1, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+Router27#

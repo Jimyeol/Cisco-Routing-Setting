@@ -1,0 +1,68 @@
+sh run
+Switch25#sh running-config 
+Building configuration...
+
+Current configuration:
+!
+version 12.0
+no service pad
+service timestamps debug uptime
+service timestamps log uptime
+no service password-encryption
+!
+hostname Switch25
+!
+!
+!
+!
+!
+!
+!
+ip subnet-zero
+!
+!
+!
+interface FastEthernet0/1
+!
+ --More--         interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface VLAN1
+ --More--          ip address 200.101.200.1 255.255.255.128
+ no ip directed-broadcast
+ no ip route-cache
+!
+!
+line con 0
+ transport input none
+ stopbits 1
+line vty 5 15
+!
+end
+
+Switch25#ping 200.101.200.1
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 200.101.200.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms
+Switch25#

@@ -1,0 +1,147 @@
+sh run
+center#sh running-config 
+Building configuration...
+
+Current configuration : 1435 bytes
+!
+! Last configuration change at 07:21:36 UTC Mon May 8 1995
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname center
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+no ipv6 cef
+ip source-route
+ip cef
+!
+!
+!
+ --More--         !
+!
+multilink bundle-name authenticated
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+license udi pid CISCO2911/K9 sn FGL15351246
+!
+!
+username center password 0 computer
+username right password 0 computer
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ --More--          no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ ip address 210.0.1.1 255.255.255.0
+ encapsulation ppp
+ ppp authentication chap
+ clock rate 64000
+!
+interface Serial0/0/1
+ --More--          ip address 200.0.1.2 255.255.255.0
+ encapsulation ppp
+ ppp authentication chap
+ clock rate 64000
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ --More--          transport input all
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+scheduler allocate 20000 1000
+end
+
+center#sh ip sei
+center#sh ip sei ri
+center#sh ip seri       int s0/0/0
+Serial0/0/0 is up, line protocol is up 
+  Hardware is WIC MBRD Serial
+  Internet address is 210.0.1.1/24
+  MTU 1500 bytes, BW 1544 Kbit/sec, DLY 20000 usec, 
+     reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation PPP, LCP Open
+  Open: IPCP, CDPCP, loopback not set
+  Keepalive set (10 sec)
+  Last input 00:00:01, output 00:00:06, output hang never
+  Last clearing of "show interface" counters 00:09:57
+  Input queue: 0/75/0/0 (size/max/drops/flushes); Total output drops: 0
+  Queueing strategy: weighted fair
+  Output queue: 0/1000/64/0 (size/max total/threshold/drops) 
+     Conversations  0/1/256 (active/max active/max total)
+     Reserved Conversations 0/0 (allocated/max allocated)
+     Available Bandwidth 1158 kilobits/sec
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     834 packets input, 15496 bytes, 0 no buffer
+     Received 0 broadcasts (0 IP multicasts)
+     0 runts, 0 giants, 0 throttles
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     894 packets output, 16109 bytes, 0 underruns
+     0 output errors, 0 collisions, 186 interface resets
+ --More--              17 unknown protocol drops
+     0 output buffer failures, 0 output buffers swapped out
+ --More--              159 carrier transitions
+     DCD=up  DSR=up  DTR=up  RTS=up  CTS=up
+ --More--         
+center#pingsh int s0/0/0running-config ping 210.0.1.2    configure t   ping 210.0.1.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 210.0.1.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 28/28/28 ms
+center#

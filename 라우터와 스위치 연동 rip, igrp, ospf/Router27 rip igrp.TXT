@@ -1,0 +1,210 @@
+sh run
+Building configuration...
+
+Current configuration : 1502 bytes
+!
+! Last configuration change at 08:06:42 UTC Tue May 23 2017
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname router27
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+no ipv6 cef
+ip source-route
+ip cef
+!
+!
+!
+ --More--         !
+!
+multilink bundle-name authenticated
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+license udi pid CISCO2911/K9 sn FGL153311X5
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address 202.101.200.2 255.255.255.128
+ duplex auto
+ --More--          speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ ip address 198.10.0.1 255.255.255.128
+ no fair-queue
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+!
+ --More--         router eigrp 200
+ network 198.10.0.0
+ network 202.101.200.0
+!
+router ospf 300
+ network 198.10.0.0 0.0.0.127 area 0
+ network 202.101.200.0 0.0.0.127 area 0
+!
+router rip
+ network 198.10.0.0
+ network 202.101.200.0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+ --More--         !
+line con 0
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport input all
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+scheduler allocate 20000 1000
+end
+
+router27#sh ip proto
+router27#sh ip protocols 
+*** IP Routing is NSF aware ***
+
+Routing Protocol is "ospf 300"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Router ID 202.101.200.2
+  Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    198.10.0.0 0.0.0.127 area 0
+    202.101.200.0 0.0.0.127 area 0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    201.101.200.2        110      00:15:00
+    200.101.200.2        110      00:13:36
+  Distance: (default is 110)
+
+Routing Protocol is "rip"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Sending updates every 30 seconds, next due in 12 seconds
+  Invalid after 180 seconds, hold down 180, flushed after 240
+  Redistributing: rip
+  Default version control: send version 1, receive any version
+ --More--             Interface             Send  Recv  Triggered RIP  Key-chain
+    GigabitEthernet0/0    1     1 2                                  
+    Serial0/0/0           1     1 2                                  
+  Automatic network summarization is in effect
+  Maximum path: 4
+  Routing for Networks:
+    198.10.0.0
+    202.101.200.0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    198.10.0.2           120      00:00:17
+  Distance: (default is 120)
+
+Routing Protocol is "eigrp 200"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP-IPv4 Protocol for AS(200)
+    Metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+    NSF-aware route hold timer is 240
+    Router-ID: 202.101.200.2
+    Topology : 0 (base) 
+      Active Timer: 3 min
+ --More--               Distance: internal 90 external 170
+      Maximum path: 4
+      Maximum hopcount 100
+      Maximum metric variance 1
+
+  Automatic Summarization: disabled
+  Maximum path: 4
+  Routing for Networks:
+    198.10.0.0
+    202.101.200.0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    198.10.0.2            90      00:04:48
+  Distance: internal 90 external 170
+
+router27#sh ip rot
+router27#sh ip rote  u
+router27#sh ip route 
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+      198.10.0.0/24 is variably subnetted, 2 subnets, 2 masks
+C        198.10.0.0/25 is directly connected, Serial0/0/0
+L        198.10.0.1/32 is directly connected, Serial0/0/0
+      199.10.0.0/24 is variably subnetted, 2 subnets, 2 masks
+R        199.10.0.0/24 [120/1] via 198.10.0.2, 00:00:27, Serial0/0/0
+D        199.10.0.0/25 [90/2681856] via 198.10.0.2, 00:04:59, Serial0/0/0
+      200.101.200.0/24 is variably subnetted, 2 subnets, 2 masks
+R        200.101.200.0/24 [120/2] via 198.10.0.2, 00:00:27, Serial0/0/0
+D        200.101.200.0/25 [90/2684416] via 198.10.0.2, 00:04:59, Serial0/0/0
+      201.101.200.0/24 is variably subnetted, 2 subnets, 2 masks
+R        201.101.200.0/24 [120/1] via 198.10.0.2, 00:00:27, Serial0/0/0
+D        201.101.200.0/25 [90/2170112] via 198.10.0.2, 00:04:56, Serial0/0/0
+ --More--               202.101.200.0/24 is variably subnetted, 2 subnets, 2 masks
+C        202.101.200.0/25 is directly connected, GigabitEthernet0/0
+L        202.101.200.2/32 is directly connected, GigabitEthernet0/0
+router27#

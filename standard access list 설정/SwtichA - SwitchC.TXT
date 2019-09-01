@@ -1,0 +1,9 @@
+
+Switch#
+Switch#ping 150.150.1.10
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 150.150.1.10, timeout is 2 seconds:
+U.U.U
+Success rate is 0 percent (0/5)
+Switch#

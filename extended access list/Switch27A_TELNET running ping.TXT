@@ -1,0 +1,147 @@
+run   sh running  
+Switch_A#sh running-config 
+Building configuration...
+
+Current configuration : 1619 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Switch_A
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$FXfn$4D1Pl5lajch48V2B810Fd1
+!
+!
+!
+no aaa new-model
+switch 1 provision ws-c2960s-24ts-l
+!
+!
+!
+ --More--         !
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+!
+!
+interface FastEthernet0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet1/0/1
+!
+interface GigabitEthernet1/0/2
+!
+interface GigabitEthernet1/0/3
+!
+interface GigabitEthernet1/0/4
+ --More--         !
+interface GigabitEthernet1/0/5
+!
+interface GigabitEthernet1/0/6
+!
+interface GigabitEthernet1/0/7
+!
+interface GigabitEthernet1/0/8
+!
+interface GigabitEthernet1/0/9
+!
+interface GigabitEthernet1/0/10
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+ --More--         interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/0/25
+!
+interface GigabitEthernet1/0/26
+!
+interface GigabitEthernet1/0/27
+ --More--         !
+interface GigabitEthernet1/0/28
+!
+interface Vlan1
+ ip address 172.16.10.2 255.255.255.0
+!
+ip http server
+ip http secure-server
+ip sla enable reaction-alerts
+!
+line con 0
+line vty 0 4
+ password computer
+ login
+line vty 5 15
+ login
+!
+end
+
+Switch_A#ping 172.16.20.2
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.16.20.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/203/1001 ms
+Switch_A#ping 172.16.30.2
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.16.30.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 6/10/15 ms
+Switch_A#telnet 172.16.20.2
+Trying 172.16.20.2 ... Open
+
+
+User Access Verification
+
+Password: 
+Switch26B>exit
+
+[Connection to 172.16.20.2 closed by foreign host]
+Switch_A#telnet 172.16.30.2
+Trying 172.16.30.2 ... Open
+
+
+User Access Verification
+
+Password: 
+Switch25C>exit
+
+[Connection to 172.16.30.2 closed by foreign host]
+Switch_A#

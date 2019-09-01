@@ -1,0 +1,124 @@
+sh run
+Router25C#sh running-config 
+Building configuration...
+
+Current configuration : 1554 bytes
+!
+! Last configuration change at 09:17:43 UTC Thu Jun 1 2017
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Router25C
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+no ipv6 cef
+ip source-route
+ip cef
+!
+!
+!
+ --More--         !
+!
+multilink bundle-name authenticated
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+license udi pid CISCO2911/K9 sn FGL153311X4
+!
+!
+vtp mode client
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address 10.1.1.2 255.255.255.0
+ --More--          ip nat inside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ ip address 30.1.1.1 255.255.255.0
+ ip nat outside
+ ip virtual-reassembly in
+!
+interface Serial0/0/1
+ no ip address
+ --More--          shutdown
+ clock rate 2000000
+!
+router rip
+ network 10.0.0.0
+ network 30.0.0.0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip nat pool computer 30.1.1.4 30.1.1.253 netmask 255.255.255.0
+ip nat inside source list 1 pool computer
+!
+access-list 1 permit 10.1.1.0 0.0.0.255
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ --More--         line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport input all
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+scheduler allocate 20000 1000
+end
+
+Router25C#p sh ip nat tr
+Router25C#sh ip nat translations 
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 30.1.1.4:9516     10.1.1.1:9516      20.1.1.1:9516      20.1.1.1:9516
+icmp 30.1.1.4:9517     10.1.1.1:9517      20.1.1.1:9517      20.1.1.1:9517
+icmp 30.1.1.4:9518     10.1.1.1:9518      20.1.1.1:9518      20.1.1.1:9518
+icmp 30.1.1.4:9519     10.1.1.1:9519      20.1.1.1:9519      20.1.1.1:9519
+icmp 30.1.1.4:9520     10.1.1.1:9520      20.1.1.1:9520      20.1.1.1:9520
+--- 30.1.1.4           10.1.1.1           ---                ---
+Router25C#

@@ -1,0 +1,7 @@
+ping 210.2409 .50.1
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 210.240.50.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 5/12/26 ms
+Switch27#

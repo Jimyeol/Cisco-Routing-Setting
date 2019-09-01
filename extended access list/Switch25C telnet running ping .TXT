@@ -1,0 +1,98 @@
+ru  sh running-config
+Building configuration...
+
+Current configuration:
+!
+version 12.0
+no service pad
+service timestamps debug uptime
+service timestamps log uptime
+no service password-encryption
+!
+hostname Switch25C
+!
+enable secret 5 $1$FgBQ$lCMxEHCfDauXzEDja423L0
+!
+!
+!
+!
+!
+!
+ip subnet-zero
+!
+!
+!
+interface FastEthernet0/1
+ --More--         !
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+ --More--         interface VLAN1
+ ip address 172.16.30.2 255.255.255.0
+ no ip directed-broadcast
+ no ip route-cache
+!
+!
+line con 0
+ transport input none
+ stopbits 1
+line vty 0 4
+ password computer
+ login
+line vty 5 15
+ login
+!
+end
+
+Switch25C# ping 172.16.20.2
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.16.20.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 8/8/8 ms
+Switch25C#ping 172.16.10.2
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.16.10.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 8/8/12 ms
+Switch25C#telnet 172.16.20.2
+Trying 172.16.20.2 ... Open
+
+
+User Access Verification
+
+Password: 
+Switch26B>ei xit
+
+[Connection to 172.16.20.2 closed by foreign host]
+Switch25C#telnet 172.16.10.2
+Trying 172.16.10.2 ... Open
+
+
+User Access Verification
+
+Password: 
+Switch_A>exit
+
+[Connection to 172.16.10.2 closed by foreign host]
+Switch25C#

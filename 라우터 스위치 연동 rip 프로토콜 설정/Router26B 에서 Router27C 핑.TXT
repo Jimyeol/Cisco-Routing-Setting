@@ -1,0 +1,122 @@
+
+Router26B#
+Router26B#$D$A$L$>          g ping      ping 200.10.10.1                shr    rn
+Router26B#sh rn  run
+Router26B#sh running-config 
+Building configuration...
+
+Current configuration : 1377 bytes
+!
+! Last configuration change at 06:31:53 UTC Mon Apr 3 1995
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Router26B
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+no ipv6 cef
+ip source-route
+ip cef
+!
+!
+!
+ --More--         !
+!
+multilink bundle-name authenticated
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+license udi pid CISCO2911/K9 sn FGL15351246
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address 149.10.10.1 255.255.0.0
+ duplex auto
+ --More--          speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ ip address 10.10.10.1 255.0.0.0
+ no fair-queue
+ clock rate 2000000
+!
+interface Serial0/0/1
+ ip address 150.10.10.2 255.255.0.0
+ clock rate 2000000
+!
+router rip
+ --More--          network 10.0.0.0
+ network 149.10.0.0
+ network 150.10.0.0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport input all
+ --More--          transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+scheduler allocate 20000 1000
+end
+
+Router26B#i ping 200.10.10.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 200.10.10.1, timeout is 2 seconds:
+.!!!!
+Success rate is 80 percent (4/5), round-trip min/avg/max = 1/2/4 ms
+Router26B#ping 200.10.10.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 200.10.10.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms
+Router26B#
